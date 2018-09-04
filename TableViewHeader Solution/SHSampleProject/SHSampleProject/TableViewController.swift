@@ -7,12 +7,21 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    var topPadding:CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = true
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            topPadding = (window?.safeAreaInsets.top)!
+            topConstraint.constant = -(64+topPadding)
+        }
     }
 
     override func didReceiveMemoryWarning() {
